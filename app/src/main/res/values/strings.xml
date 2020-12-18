@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Taxi Tiempos</string>
+
+    <string name="type_of_tiempo">Jugando tiempos: %1$s</string>
+    <string name="price_placeholder">Ingrese el monto deseado</string>
+    <string name="select_numbers">Ingrese los números que desea comprar</string>
+    <string name="selected_numbers">Los números que ha seleccionado son:</string>
+    <string name="buyers_name">Ingrese nombre del comprador</string>
+    <string name="buyers_phone">Ingrese número del comprador</string>
+    <string name="sell_text">Vender</string>
+    <string name="total_price">Total: %1$d</string>
+    <string name="sell_home_label">Vender Tiempos</string>
+    <string name="selling_list_home_label">Tiempos Vendidos</string>
+    <string name="winning_home_label">Seleccionar Ganador</string>
+
+    <string name="buyers_name_listing">Comprador: %1$s</string>
+    <string name="buyers_contact_listing">Contacto: %1$s</string>
+    <string name="number_listing">Número: %1$d</string>
+    <string name="price_listing">Monto: %1$d</string>
+    <string name="search_button">Buscar</string>
+
+    <string name="listings_not_found">No hay tiempos disponibles</string>
+
+    <string name="winning_number">Ingrese el número ganador</string>
+    <string name="winners_list">Lista de Ganadores</string>
+    <string name="select_winner">Seleccionar Ganador</string>
+
+    <string name="selling_dialog_title">Información del Tiempo</string>
+    <string name="send">Enviar</string>
+    <string name="sorteo_date">Fecha Sorteo: %1$s</string>
+
+    <!--  Seller Information  -->
+    <string name="seller_name">Mario Mena Arce</string>
+    <string name="seller_phone">85788532</string>
+    <string name="date">Fecha del Sorteo: %1$s</string>
+    <string name="legal_info">Tiene 7 Días para cobrar. No se aceptan reclamos. Sin esta imagen y su identificador no se paga. Pagamos 85 veces</string>
+    <string name="good_luck">Muchas gracias y buena suerte!</string>
+    <string name="buyers_name_info">Comprador: %1$s</string>
+    <string name="sorteo_label">Sorteo: Tica %1$s %2$d</string>
+    <string name="send_tiempo">Enviar Tiempo</string>
+    <string name="secret_key">Identificador: %1$s</string>
+</resources>

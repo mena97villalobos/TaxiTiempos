@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/sellingFragment"
+        android:name="com.mena97villalobos.taxitiempos.ui.selling.SellingFragment"
+        android:label="SellingFragment"
+        tools:layout="@layout/fragment_selling">
+        <action
+            android:id="@+id/action_sellingFragment_to_sellingDialog"
+            app:destination="@id/sellingDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mena97villalobos.taxitiempos.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_sellingFragment"
+            app:destination="@id/sellingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listingFragment"
+            app:destination="@id/listingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_winnerFragment"
+            app:destination="@id/winnerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listingFragment"
+        android:name="com.mena97villalobos.taxitiempos.ui.listing.ListingFragment"
+        android:label="ListingFragment"
+        tools:layout="@layout/fragment_listing"/>
+    <fragment
+        android:id="@+id/winnerFragment"
+        android:name="com.mena97villalobos.taxitiempos.ui.winner.WinnerFragment"
+        android:label="WinnerFragment"
+        tools:layout="@layout/fragment_winner"/>
+    <dialog
+        android:id="@+id/sellingDialog"
+        android:name="com.mena97villalobos.taxitiempos.ui.sellingdialog.SellingDialog"
+        android:label="SellingDialog"
+        tools:layout="@layout/fragment_dialog_selling">
+        <argument
+            android:name="idsList"
+            app:argType="string" />
+    </dialog>
+</navigation>
