@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mena97villalobos.taxitiempos.R
 import com.mena97villalobos.taxitiempos.database.AppDatabase
 import com.mena97villalobos.taxitiempos.databinding.FragmentWinnerBinding
@@ -68,7 +69,10 @@ class WinnerFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = ListingAdapter(requireContext())
+        adapter = ListingAdapter(requireContext()) {
+            this@WinnerFragment.findNavController()
+                .navigate(WinnerFragmentDirections.actionWinnerFragmentToSellingDialog(it.secretKey))
+        }
         binding.winnersList.adapter = adapter
     }
 
@@ -76,9 +80,9 @@ class WinnerFragment : Fragment() {
         binding.selectWinner.setOnClickListener {
             try {
                 viewModel.saveWinner(
-                        binding.winnerNumber.text.toString().toInt(),
-                        selectedDate,
-                        binding.isDiurna.isChecked
+                    binding.winnerNumber.text.toString().toInt(),
+                    selectedDate,
+                    binding.isDiurna.isChecked
                 )
             } catch (ignored: Exception) {
                 Toast.makeText(context, "Informacion incompleta", Toast.LENGTH_LONG).show()

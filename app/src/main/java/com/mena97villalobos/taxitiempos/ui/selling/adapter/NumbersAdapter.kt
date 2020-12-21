@@ -42,9 +42,18 @@ class NumbersAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItem(number: WantedNumber) {
-        data.add(0, number)
-        notifyItemInserted(0)
+    fun addItem(number: WantedNumber) : Boolean {
+        var currentSellValue = 0
+        data.filter { currentItem -> currentItem.number == number.number }
+            .forEach { currentItem -> currentSellValue += currentItem.price }
+
+        return if (currentSellValue + number.price <= 10_000) {
+            data.add(0, number)
+            notifyItemInserted(0)
+            true
+        } else {
+            false
+        }
     }
 
     class ViewHolder(
@@ -53,10 +62,11 @@ class NumbersAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(wantedNumber: WantedNumber, deleteClickListener: View.OnClickListener) {
-            binding.number.text = wantedNumber.number.toString()
+            val numberText = if (wantedNumber.number <= 9) "0${wantedNumber.number}" else wantedNumber.number.toString()
+            binding.number.text = numberText
             binding.deleteButton.setOnClickListener(deleteClickListener)
             binding.content.setOnClickListener {
-                Toast.makeText(context, "Número ${wantedNumber.number} Monto: ${wantedNumber.price}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Número $numberText Monto: ${wantedNumber.price}", Toast.LENGTH_LONG).show()
             }
         }
 

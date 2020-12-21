@@ -47,7 +47,6 @@ class SellingDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_dialog_selling,
@@ -84,13 +83,12 @@ class SellingDialog : DialogFragment() {
                 val numbersString = StringBuilder()
                 numbersString.append("═════════════\n")
                 it.forEach { tiempo ->
-                    numbersString.append("║")
-                    numbersString.append("${tiempo.numero}".padStart(3, ' ').padEnd(4, ' '))
-                    numbersString.append("*")
+                    val numberText = if (tiempo.numero <= 9) "0${tiempo.numero}" else tiempo.numero.toString()
+                    numbersString.append("║ $numberText *")
                     numbersString.append("${tiempo.monto}".padStart(6, ' ').padEnd(8, ' '))
                     numbersString.append("║\n")
-                    numbersString.append("═════════════\n")
                 }
+                numbersString.append("═════════════\n")
                 binding.numbersText.text = numbersString.toString()
                 viewModel.clearTiempos()
             }
@@ -142,9 +140,7 @@ class SellingDialog : DialogFragment() {
 
     private fun getIdsFromArgs(): List<String> {
         val listIds = arrayListOf<String>()
-        args.idsList.split(",").forEach {
-            listIds.add(it)
-        }
+        args.idsList.split(",").forEach { listIds.add(it) }
         return listIds
     }
 

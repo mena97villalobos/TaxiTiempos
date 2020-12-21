@@ -3,6 +3,7 @@ package com.mena97villalobos.taxitiempos.database
 import androidx.room.*
 import com.mena97villalobos.taxitiempos.database.model.AvailableNumbers
 import com.mena97villalobos.taxitiempos.database.model.Tiempo
+import com.mena97villalobos.taxitiempos.ui.selling.viewmodel.PriceAvailability
 
 @Dao
 interface DatabaseDao {
@@ -46,10 +47,13 @@ interface DatabaseDao {
     @Query("SELECT * FROM available_numbers WHERE number = :number AND isDiurna = :isDiurna;")
     fun getDataByNumber(number: Int, isDiurna: Boolean): AvailableNumbers
 
+    @Query("SELECT SUM(monto) AS totalSells from tiempos_table WHERE numero = :number AND is_duirna = :isDiurna AND fecha_sorteo = :fecha")
+    fun getNumberTotalSell(number: Int, isDiurna: Boolean, fecha: String): PriceAvailability
+
     @Query("SELECT * FROM tiempos_table WHERE fecha_sorteo = :date;")
     fun getByDate(date: String): List<Tiempo>
 
     @Query("SELECT * FROM tiempos_table WHERE secret_key = :uuid;")
-    fun getTiempoBySecretKey(uuid: String): Tiempo
+    fun getTiempoBySecretKey(uuid: String): List<Tiempo>
 
 }

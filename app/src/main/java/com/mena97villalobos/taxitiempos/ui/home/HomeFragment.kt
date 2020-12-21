@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
         )
 
         setupClickListeners()
-        enqueueResetDatabaseWork()
+        // Removing database worker enqueueResetDatabaseWork()
 
         return binding.root
     }

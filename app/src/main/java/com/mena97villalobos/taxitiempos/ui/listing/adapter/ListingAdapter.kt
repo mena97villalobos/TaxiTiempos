@@ -9,8 +9,10 @@ import com.mena97villalobos.taxitiempos.R
 import com.mena97villalobos.taxitiempos.database.model.Tiempo
 import com.mena97villalobos.taxitiempos.databinding.ViewListingTiempoBinding
 
-class ListingAdapter(private val context: Context) :
-        RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
+class ListingAdapter(
+    private val context: Context,
+    private val clickListener: (Tiempo) -> Unit
+) : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
 
     private val data = arrayListOf<Tiempo>()
     private val originalData = arrayListOf<Tiempo>()
@@ -25,7 +27,7 @@ class ListingAdapter(private val context: Context) :
             )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-            holder.bind(data[position], context)
+            holder.bind(data[position], context, clickListener)
 
     override fun getItemCount(): Int = data.size
 
@@ -56,13 +58,15 @@ class ListingAdapter(private val context: Context) :
             private val binding: ViewListingTiempoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tiempo: Tiempo, context: Context) {
+        fun bind(tiempo: Tiempo, context: Context, clickListener: (Tiempo) -> Unit) {
+            val numberText = if (tiempo.numero <= 9) "0${tiempo.numero}" else tiempo.numero.toString()
             binding.buyerNameListing.text =
                     context.getString(R.string.buyers_name_listing, tiempo.nombreComprador)
-            binding.numberListing.text = context.getString(R.string.number_listing, tiempo.numero)
+            binding.numberListing.text = context.getString(R.string.number_listing, numberText)
             binding.priceListing.text = context.getString(R.string.price_listing, tiempo.monto)
             binding.buyerContactInfo.text = context.getString(R.string.buyers_contact_listing, tiempo.telefonoComprador)
             binding.typeImageView.setImageDrawable(ContextCompat.getDrawable(context, if (tiempo.isDiurna) R.drawable.ic_sun else R.drawable.ic_moon))
+            binding.contents.setOnClickListener { clickListener(tiempo) }
             if (tiempo.isWinner)
                 binding.contents.background = ContextCompat.getDrawable(context, R.drawable.winner_box_shape)
         }

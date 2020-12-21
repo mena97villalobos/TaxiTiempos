@@ -33,12 +33,20 @@
         android:id="@+id/listingFragment"
         android:name="com.mena97villalobos.taxitiempos.ui.listing.ListingFragment"
         android:label="ListingFragment"
-        tools:layout="@layout/fragment_listing"/>
+        tools:layout="@layout/fragment_listing">
+        <action
+            android:id="@+id/action_listingFragment_to_sellingDialog"
+            app:destination="@id/sellingDialog" />
+    </fragment>
     <fragment
         android:id="@+id/winnerFragment"
         android:name="com.mena97villalobos.taxitiempos.ui.winner.WinnerFragment"
         android:label="WinnerFragment"
-        tools:layout="@layout/fragment_winner"/>
+        tools:layout="@layout/fragment_winner">
+        <action
+            android:id="@+id/action_winnerFragment_to_sellingDialog"
+            app:destination="@id/sellingDialog" />
+    </fragment>
     <dialog
         android:id="@+id/sellingDialog"
         android:name="com.mena97villalobos.taxitiempos.ui.sellingdialog.SellingDialog"

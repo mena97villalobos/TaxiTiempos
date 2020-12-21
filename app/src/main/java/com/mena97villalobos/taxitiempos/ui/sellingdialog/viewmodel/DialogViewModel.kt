@@ -20,7 +20,7 @@ class DialogViewModel(private val database: DatabaseDao) : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val tiempos = arrayListOf<Tiempo>()
-                ids.forEach { tiempos.add(database.getTiempoBySecretKey(it)) }
+                ids.forEach { tiempos.addAll(database.getTiempoBySecretKey(it)) }
                 _soldTiempos.postValue(tiempos)
             }
         }

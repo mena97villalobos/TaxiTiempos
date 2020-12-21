@@ -21,6 +21,7 @@ import com.mena97villalobos.taxitiempos.ui.selling.viewmodel.SellingViewModelFac
 import org.joda.time.DateTime
 import org.joda.time.Duration
 import java.lang.StringBuilder
+import java.util.*
 import java.util.concurrent.Executor
 
 class SellingFragment : Fragment() {
@@ -97,13 +98,7 @@ class SellingFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.validNumber.observe(viewLifecycleOwner, {
-            if (it != null && it != NumbersAdapter.errorWantedNumber) {
-                adapter.addItem(it)
-                clearNumberInputs()
-                totalPrice += it.price
-                binding.totalPrice.text = getString(R.string.total_price, totalPrice)
-                viewModel.clearValidNumber()
-            } else if (it != null && it == NumbersAdapter.errorWantedNumber) {
+            fun errorHandler() {
                 Snackbar.make(
                     binding.snackbarView,
                     "Número no disponible",
@@ -111,15 +106,26 @@ class SellingFragment : Fragment() {
                 ).show()
                 viewModel.clearValidNumber()
             }
+
+            if (it != null && it != NumbersAdapter.errorWantedNumber) {
+                if (adapter.addItem(it)) {
+                    clearNumberInputs()
+                    totalPrice += it.price
+                    binding.totalPrice.text = getString(R.string.total_price, totalPrice)
+                    viewModel.clearValidNumber()
+                } else {
+                    errorHandler()
+                }
+            } else if (it != null && it == NumbersAdapter.errorWantedNumber) {
+                errorHandler()
+            }
         })
 
-        viewModel.success.observe(viewLifecycleOwner, { tiempos ->
-            if (tiempos != null) {
-                val stringArgument = StringBuilder()
-                tiempos.forEach { stringArgument.append("${it.secretKey},") }
+        viewModel.success.observe(viewLifecycleOwner, { secretKey ->
+            if (secretKey != null) {
                 findNavController().navigate(
                     SellingFragmentDirections.actionSellingFragmentToSellingDialog(
-                        stringArgument.toString().dropLast(1)
+                        secretKey
                     )
                 )
                 clearInputs()
@@ -161,6 +167,7 @@ class SellingFragment : Fragment() {
     private fun setupSellClickListener() {
         binding.sellButton.setOnClickListener {
             if (
+                true ||
                 (currentTime == TypeTiempo.DIURNA && getTimeDifferenceDiurna() > 0) ||
                 (currentTime == TypeTiempo.NOCTURNA && getTimeDifferenceNocturna() > 0)
             ) {
@@ -213,7 +220,6 @@ class SellingFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = NumbersAdapter(requireContext()) {
-            viewModel.deleteNumber(it, currentTime == TypeTiempo.DIURNA)
             totalPrice -= it.price
             binding.totalPrice.text = getString(R.string.total_price, totalPrice)
         }
@@ -227,12 +233,13 @@ class SellingFragment : Fragment() {
         binding.totalPrice.text = getString(R.string.total_price, 0)
         binding.addNumber.setOnClickListener {
             try {
-                val number = binding.numberInput.text.toString().toInt()
+                val numberText = binding.numberInput.text.toString()
+                val number = (if (numberText.startsWith("0")) numberText.subSequence(1, numberText.length).toString() else numberText).toInt()
                 val price = binding.priceInput.text.toString().toInt()
                 val isDiurna = currentTime == TypeTiempo.DIURNA
 
                 if (number in 0..99 && price in 100..10_000) {
-                    viewModel.validateNumberPrice(number, price, isDiurna)
+                    viewModel.validateNumberPrice(number, price, isDiurna, Date())
                 } else {
                     Snackbar.make(
                         binding.snackbarView,

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Taxi Tiempos</string>
 
-    <string name="type_of_tiempo">Jugando tiempos: %1$s</string>
-    <string name="price_placeholder">Ingrese el monto deseado</string>
-    <string name="select_numbers">Ingrese los números que desea comprar</string>
+    <string name="type_of_tiempo">Jugando: %1$s</string>
+    <string name="price_placeholder">Ingrese el monto deseado para el número</string>
+    <string name="select_numbers">Ingrese el número que desea comprar</string>
     <string name="selected_numbers">Los números que ha seleccionado son:</string>
     <string name="buyers_name">Ingrese nombre del comprador</string>
-    <string name="buyers_phone">Ingrese número del comprador</string>
+    <string name="buyers_phone">Ingrese teléfono del comprador</string>
     <string name="sell_text">Vender</string>
     <string name="total_price">Total: %1$d</string>
     <string name="sell_home_label">Vender Tiempos</string>
@@ -15,7 +15,7 @@
 
     <string name="buyers_name_listing">Comprador: %1$s</string>
     <string name="buyers_contact_listing">Contacto: %1$s</string>
-    <string name="number_listing">Número: %1$d</string>
+    <string name="number_listing">Número: %1$s</string>
     <string name="price_listing">Monto: %1$d</string>
     <string name="search_button">Buscar</string>
 
@@ -32,7 +32,7 @@
     <!--  Seller Information  -->
     <string name="seller_name">Mario Mena Arce</string>
     <string name="seller_phone">85788532</string>
-    <string name="date">Fecha del Sorteo: %1$s</string>
+    <string name="date">Fecha: %1$s</string>
     <string name="legal_info">Tiene 7 Días para cobrar. No se aceptan reclamos. Sin esta imagen y su identificador no se paga. Pagamos 85 veces</string>
     <string name="good_luck">Muchas gracias y buena suerte!</string>
     <string name="buyers_name_info">Comprador: %1$s</string>

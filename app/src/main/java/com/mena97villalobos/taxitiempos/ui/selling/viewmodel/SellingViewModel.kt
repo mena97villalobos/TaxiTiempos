@@ -8,6 +8,7 @@ import com.mena97villalobos.taxitiempos.database.DatabaseDao
 import com.mena97villalobos.taxitiempos.database.model.Tiempo
 import com.mena97villalobos.taxitiempos.ui.selling.adapter.NumbersAdapter
 import com.mena97villalobos.taxitiempos.ui.selling.adapter.WantedNumber
+import com.mena97villalobos.taxitiempos.ui.utils.DatePicker.Companion.dateToString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,25 +16,23 @@ import java.util.*
 
 class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
 
-    private val _success = MutableLiveData<List<Tiempo>>(null)
-    val success: LiveData<List<Tiempo>>
+    private val _success = MutableLiveData<String>(null)
+    val success: LiveData<String>
         get() = _success
 
     private val _validNumber = MutableLiveData<WantedNumber?>(null)
     val validNumber: LiveData<WantedNumber?>
         get() = _validNumber
 
-    fun validateNumberPrice(number: Int, price: Int, isDiurna: Boolean) =
+    fun validateNumberPrice(number: Int, price: Int, isDiurna: Boolean, date: Date) =
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val availableNumber = database.getDataByNumber(number, isDiurna)
-                if (availableNumber.availableQuantity >= price) {
-                    availableNumber.availableQuantity -= price
-                    database.updateAvailableNumbers(availableNumber)
-                    _validNumber.postValue(WantedNumber(number, price))
-                } else {
-                    _validNumber.postValue(NumbersAdapter.errorWantedNumber)
-                }
+                val priceAvailability =
+                    database.getNumberTotalSell(number, isDiurna, dateToString(date))
+                _validNumber.postValue(
+                    if (priceAvailability.totalSells + price < 10_000) WantedNumber(number, price)
+                    else NumbersAdapter.errorWantedNumber
+                )
             }
         }
 
@@ -54,6 +53,7 @@ class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val result = arrayListOf<Tiempo>()
+                val secretKeyBatch = UUID.randomUUID().toString()
                 tiempos.forEach {
                     val tiempo = Tiempo(
                         nombreComprador = buyersName,
@@ -61,22 +61,15 @@ class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
                         isDiurna = isDiurna,
                         monto = it.price,
                         numero = it.number,
-                        secretKey = UUID.randomUUID().toString()
+                        secretKey = secretKeyBatch
                     )
                     database.insertTiempo(tiempo)
                     result.add(tiempo)
                 }
-                _success.postValue(result)
-            }
-        }
-
-    fun deleteNumber(wantedNumber: WantedNumber, isDiurna: Boolean) =
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val availableNumber = database.getDataByNumber(wantedNumber.number, isDiurna)
-                availableNumber.availableQuantity += wantedNumber.price
-                database.updateAvailableNumbers(availableNumber)
+                _success.postValue(secretKeyBatch)
             }
         }
 
 }
+
+data class PriceAvailability(val totalSells: Int)

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mena97villalobos.taxitiempos.R
 import com.mena97villalobos.taxitiempos.database.AppDatabase
 import com.mena97villalobos.taxitiempos.databinding.FragmentListingBinding
@@ -55,7 +56,8 @@ class ListingFragment : Fragment() {
         setupDatePicker()
         viewModel.getTiemposByDate(selectedDate)
 
-        binding.datePickerButton.text = getString(R.string.sorteo_date, DatePicker.dateToString(selectedDate))
+        binding.datePickerButton.text =
+            getString(R.string.sorteo_date, DatePicker.dateToString(selectedDate))
 
         return binding.root
     }
@@ -88,7 +90,10 @@ class ListingFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = ListingAdapter(requireContext())
+        adapter = ListingAdapter(requireContext()) {
+            this@ListingFragment.findNavController()
+                .navigate(ListingFragmentDirections.actionListingFragmentToSellingDialog(it.secretKey))
+        }
         binding.listingsView.adapter = adapter
     }
 
