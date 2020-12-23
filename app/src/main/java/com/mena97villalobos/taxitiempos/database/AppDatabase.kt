@@ -9,7 +9,7 @@ import com.mena97villalobos.taxitiempos.database.converters.Converters
 import com.mena97villalobos.taxitiempos.database.model.AvailableNumbers
 import com.mena97villalobos.taxitiempos.database.model.Tiempo
 
-@Database(entities = [Tiempo::class, AvailableNumbers::class], version = 3)
+@Database(entities = [Tiempo::class, AvailableNumbers::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

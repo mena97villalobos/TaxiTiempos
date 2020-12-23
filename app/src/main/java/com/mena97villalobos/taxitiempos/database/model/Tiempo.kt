@@ -16,9 +16,6 @@ data class Tiempo(
     @ColumnInfo(name = "nombre_comprador")
     var nombreComprador: String = "",
 
-    @ColumnInfo(name = "telefono_comprador")
-    var telefonoComprador: String = "",
-
     @ColumnInfo(name = "is_duirna")
     val isDiurna: Boolean = true,
 

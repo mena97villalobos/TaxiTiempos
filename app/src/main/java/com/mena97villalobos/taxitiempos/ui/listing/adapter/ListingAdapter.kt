@@ -64,7 +64,6 @@ class ListingAdapter(
                     context.getString(R.string.buyers_name_listing, tiempo.nombreComprador)
             binding.numberListing.text = context.getString(R.string.number_listing, numberText)
             binding.priceListing.text = context.getString(R.string.price_listing, tiempo.monto)
-            binding.buyerContactInfo.text = context.getString(R.string.buyers_contact_listing, tiempo.telefonoComprador)
             binding.typeImageView.setImageDrawable(ContextCompat.getDrawable(context, if (tiempo.isDiurna) R.drawable.ic_sun else R.drawable.ic_moon))
             binding.contents.setOnClickListener { clickListener(tiempo) }
             if (tiempo.isWinner)

@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "afee10496b09b2071213c508b596546b",
+    "entities": [
+      {
+        "tableName": "tiempos_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tiempoId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fecha_sorteo` TEXT NOT NULL, `nombre_comprador` TEXT NOT NULL, `is_duirna` INTEGER NOT NULL, `monto` INTEGER NOT NULL, `numero` INTEGER NOT NULL, `paga` INTEGER NOT NULL, `is_winner` INTEGER NOT NULL, `secret_key` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "tiempoId",
+            "columnName": "tiempoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaSorteo",
+            "columnName": "fecha_sorteo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombreComprador",
+            "columnName": "nombre_comprador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDiurna",
+            "columnName": "is_duirna",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "monto",
+            "columnName": "monto",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numero",
+            "columnName": "numero",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paga",
+            "columnName": "paga",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isWinner",
+            "columnName": "is_winner",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secretKey",
+            "columnName": "secret_key",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tiempoId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "available_numbers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`availableNumberId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` INTEGER NOT NULL, `available` INTEGER NOT NULL, `isDiurna` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "availableNumberId",
+            "columnName": "availableNumberId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "availableQuantity",
+            "columnName": "available",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDiurna",
+            "columnName": "isDiurna",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "availableNumberId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afee10496b09b2071213c508b596546b')"
+    ]
+  }
+}

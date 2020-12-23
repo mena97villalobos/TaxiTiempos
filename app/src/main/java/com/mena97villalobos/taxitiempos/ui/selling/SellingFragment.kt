@@ -20,7 +20,6 @@ import com.mena97villalobos.taxitiempos.ui.selling.viewmodel.SellingViewModel
 import com.mena97villalobos.taxitiempos.ui.selling.viewmodel.SellingViewModelFactory
 import org.joda.time.DateTime
 import org.joda.time.Duration
-import java.lang.StringBuilder
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -41,11 +40,11 @@ class SellingFragment : Fragment() {
         ).show()
     }
     private val authSuccess: () -> Unit = {
-        if (validateBuyersInfo()) {
+        val name = binding.buyerNameInput.text.toString()
+        if (name.isNotBlank()) {
             viewModel.sellTiempos(
                 adapter.getData(),
-                binding.buyerNameInput.text.toString(),
-                binding.buyersPhoneInput.text.toString(),
+                name,
                 currentTime == TypeTiempo.DIURNA
             )
         } else {
@@ -136,7 +135,6 @@ class SellingFragment : Fragment() {
 
     private fun clearInputs() {
         binding.buyerNameInput.setText("")
-        binding.buyersPhoneInput.setText("")
         binding.totalPrice.text = getString(R.string.total_price, 0)
         adapter.clearData()
         clearNumberInputs()
@@ -167,7 +165,6 @@ class SellingFragment : Fragment() {
     private fun setupSellClickListener() {
         binding.sellButton.setOnClickListener {
             if (
-                true ||
                 (currentTime == TypeTiempo.DIURNA && getTimeDifferenceDiurna() > 0) ||
                 (currentTime == TypeTiempo.NOCTURNA && getTimeDifferenceNocturna() > 0)
             ) {
@@ -225,9 +222,6 @@ class SellingFragment : Fragment() {
         }
         binding.numbersList.adapter = adapter
     }
-
-    private fun validateBuyersInfo() =
-        binding.buyerNameInput.text.isNotBlank() && binding.buyersPhoneInput.text.isNotBlank()
 
     private fun setupAddButton() {
         binding.totalPrice.text = getString(R.string.total_price, 0)

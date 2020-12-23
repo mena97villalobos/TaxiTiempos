@@ -30,8 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/buyer_contact_info"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/buyers_name_listing" />
@@ -40,12 +38,12 @@
             android:id="@+id/number_listing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="@string/number_listing"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/buyer_contact_info"
-            app:layout_constraintTop_toBottomOf="@+id/buyer_contact_info" />
+            app:layout_constraintStart_toStartOf="@+id/buyer_name_listing"
+            app:layout_constraintTop_toBottomOf="@+id/buyer_name_listing" />
 
         <TextView
             android:id="@+id/price_listing"
@@ -61,22 +59,11 @@
             android:id="@+id/type_image_view"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_sun" />
-
-        <TextView
-            android:id="@+id/buyer_contact_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/buyers_contact_listing"
-            app:layout_constraintBottom_toTopOf="@+id/number_listing"
-            app:layout_constraintStart_toStartOf="@+id/buyer_name_listing"
-            app:layout_constraintTop_toBottomOf="@+id/buyer_name_listing" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

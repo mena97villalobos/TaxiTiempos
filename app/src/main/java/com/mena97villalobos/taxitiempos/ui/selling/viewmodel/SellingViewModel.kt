@@ -47,7 +47,6 @@ class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
     fun sellTiempos(
         tiempos: List<WantedNumber>,
         buyersName: String,
-        buyersPhone: String,
         isDiurna: Boolean
     ) =
         viewModelScope.launch {
@@ -57,7 +56,6 @@ class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
                 tiempos.forEach {
                     val tiempo = Tiempo(
                         nombreComprador = buyersName,
-                        telefonoComprador = buyersPhone,
                         isDiurna = isDiurna,
                         monto = it.price,
                         numero = it.number,
