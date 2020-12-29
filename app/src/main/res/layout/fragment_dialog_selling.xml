@@ -13,13 +13,13 @@
     <RelativeLayout
         android:id="@+id/main_dialog_layout"
         android:layout_width="350dp"
-        android:layout_height="650dp">
+        android:layout_height="wrap_content">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="350dp"
-            android:layout_height="650dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,12 +46,12 @@
                 android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
                 android:text="@string/send"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tiempo_view" />
 
             <ImageButton
                 android:id="@+id/cancel_button"
@@ -71,13 +71,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/tiempo_view"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/box_shape"
-                app:layout_constraintBottom_toTopOf="@+id/send_button"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_title">
@@ -91,7 +89,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/app_name"
-                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/view"
                     app:layout_constraintEnd_toStartOf="@+id/textView8"
@@ -105,6 +104,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/seller_name"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -116,6 +116,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/seller_phone"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -139,6 +140,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/sorteo_label"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -147,14 +149,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/legal_info"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
                 <TextView
                     android:id="@+id/sorteo_date_label"
@@ -163,6 +168,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/date"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sorteo_label" />
 
@@ -173,20 +179,20 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/buyers_name_info"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sorteo_date_label" />
 
                 <TextView
                     android:id="@+id/numbers_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:fontFamily="monospace"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView11"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/secret_key" />
@@ -197,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/secret_key"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/buyers_name_info"
                     app:layout_constraintTop_toBottomOf="@+id/buyers_name_info" />
@@ -210,23 +217,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_logo"
-                    app:tint="@android:color/darker_gray" />
+                    app:tint="@color/black" />
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:text="@string/good_luck"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView12"
+                    app:drawableStartCompat="@drawable/ic_clover"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:drawableStartCompat="@drawable/ic_clover" />
+                    app:layout_constraintTop_toBottomOf="@+id/numbers_text" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/print_button"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/print"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/send_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

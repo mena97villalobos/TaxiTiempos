@@ -1,8 +1,10 @@
 package com.mena97villalobos.taxitiempos.ui.sellingdialog
 
+import android.Manifest
 import android.app.ActionBar
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
@@ -24,7 +26,6 @@ import com.mena97villalobos.taxitiempos.ui.sellingdialog.viewmodel.DialogViewMod
 import com.mena97villalobos.taxitiempos.ui.sellingdialog.viewmodel.DialogViewModelFactory
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,14 +82,12 @@ class SellingDialog : DialogFragment() {
             if (it != null) {
                 setupLabels(it.first())
                 val numbersString = StringBuilder()
-                numbersString.append("═════════════\n")
                 it.forEach { tiempo ->
                     val numberText = if (tiempo.numero <= 9) "0${tiempo.numero}" else tiempo.numero.toString()
                     numbersString.append("║ $numberText *")
                     numbersString.append("${tiempo.monto}".padStart(6, ' ').padEnd(8, ' '))
                     numbersString.append("║\n")
                 }
-                numbersString.append("═════════════\n")
                 binding.numbersText.text = numbersString.toString()
                 viewModel.clearTiempos()
             }
@@ -108,18 +107,7 @@ class SellingDialog : DialogFragment() {
 
     private fun setupClickListener() {
         binding.sendButton.setOnClickListener {
-            val bitmap = Bitmap.createBitmap(
-                binding.tiempoView.width,
-                binding.tiempoView.height,
-                Bitmap.Config.ARGB_8888
-            )
-            val canvas = Canvas(bitmap)
-            binding.tiempoView.draw(canvas)
-            val file = File(
-                    requireContext().filesDir,
-                    "tiempo${System.currentTimeMillis()}.jpg"
-            )
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, FileOutputStream(file))
+            val file = saveBitmap().second
             shareImageUri(
                 FileProvider.getUriForFile(
                     requireContext(),
@@ -128,6 +116,30 @@ class SellingDialog : DialogFragment() {
                 )
             )
         }
+
+        binding.printButton.setOnClickListener {
+            if (requireActivity().checkSelfPermission(Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+                requireActivity().requestPermissions(arrayOf(Manifest.permission.BLUETOOTH), 0)
+            } else {
+                viewModel.printTiempos(saveBitmap().first)
+            }
+        }
+    }
+
+    private fun saveBitmap(): Pair<Bitmap, File> {
+        val bitmap = Bitmap.createBitmap(
+            binding.tiempoView.width,
+            binding.tiempoView.height,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        binding.tiempoView.draw(canvas)
+        val file = File(
+            requireContext().filesDir,
+            "tiempo${System.currentTimeMillis()}.jpg"
+        )
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, FileOutputStream(file))
+        return Pair<Bitmap, File>(bitmap, file)
     }
 
     private fun shareImageUri(uri: Uri) {

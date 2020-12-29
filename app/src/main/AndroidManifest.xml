@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mena97villalobos.taxitiempos">
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
     <application
         android:debuggable="true"
         android:allowBackup="true"

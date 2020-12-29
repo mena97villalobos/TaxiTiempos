@@ -27,6 +27,7 @@
 
     <string name="selling_dialog_title">Información del Tiempo</string>
     <string name="send">Enviar</string>
+    <string name="print">Imprimir</string>
     <string name="sorteo_date">Fecha Sorteo: %1$s</string>
 
     <!--  Seller Information  -->
