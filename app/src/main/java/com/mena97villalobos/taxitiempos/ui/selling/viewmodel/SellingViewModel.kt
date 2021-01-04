@@ -30,7 +30,7 @@ class SellingViewModel(private val database: DatabaseDao) : ViewModel() {
                 val priceAvailability =
                     database.getNumberTotalSell(number, isDiurna, dateToString(date))
                 _validNumber.postValue(
-                    if (priceAvailability.totalSells + price < 10_000) WantedNumber(number, price)
+                    if (priceAvailability.totalSells + price <= 10_000) WantedNumber(number, price)
                     else NumbersAdapter.errorWantedNumber
                 )
             }

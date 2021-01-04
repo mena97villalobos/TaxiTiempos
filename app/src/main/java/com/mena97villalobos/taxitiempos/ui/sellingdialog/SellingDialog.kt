@@ -24,6 +24,7 @@ import com.mena97villalobos.taxitiempos.database.model.Tiempo
 import com.mena97villalobos.taxitiempos.databinding.FragmentDialogSellingBinding
 import com.mena97villalobos.taxitiempos.ui.sellingdialog.viewmodel.DialogViewModel
 import com.mena97villalobos.taxitiempos.ui.sellingdialog.viewmodel.DialogViewModelFactory
+import kotlinx.android.synthetic.main.view_selected_number.*
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -82,12 +83,16 @@ class SellingDialog : DialogFragment() {
             if (it != null) {
                 setupLabels(it.first())
                 val numbersString = StringBuilder()
+                var total = 0
                 it.forEach { tiempo ->
                     val numberText = if (tiempo.numero <= 9) "0${tiempo.numero}" else tiempo.numero.toString()
                     numbersString.append("║ $numberText *")
                     numbersString.append("${tiempo.monto}".padStart(6, ' ').padEnd(8, ' '))
                     numbersString.append("║\n")
+                    total += tiempo.monto
                 }
+                numbersString.append("\n║ TOTAL: $total".padEnd(14, ' '))
+                numbersString.append(" ║\n")
                 binding.numbersText.text = numbersString.toString()
                 viewModel.clearTiempos()
             }
